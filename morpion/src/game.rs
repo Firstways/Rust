@@ -1,20 +1,21 @@
 #[allow(unused_variables, unused_assignments)]
 #[allow(unused_parens)]
+#[warn(unused_comparisons)]
 pub mod morpion
 {
     // Initialise la grille du morpion
-    pub fn InitialiseGrille()->[[char;3];3]{
+    pub fn initialise_grille()->[[char;3];3]{
         let mut tab = [['_';3];3];
         return tab;
     }
     // Affiche la grille du morpion
-    pub fn AfficheGrille(tab : &mut [[char;3];3]){
+    pub fn affiche_grille(tab : &mut [[char;3];3]){
         for i in 0..3 {
             println!("{:?} ",&tab[i]);
         }
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la ligne
-    pub fn VerifLine(tab : &mut [[char;3];3])->bool{
+    pub fn verif_line(tab : &mut [[char;3];3])->bool{
         let joueur1 =['x';3];
         let joueur2=['0';3];
        
@@ -26,126 +27,135 @@ pub mod morpion
         return false
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la colonne
-    pub fn VerifColonne(valeurCellule:char,tab : &mut [[char;3];3])->bool{
+    pub fn verif_colonne(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
         for i in 0..3{
-            if (tab[0][i]==valeurCellule)&&(tab[1][i]==tab[2][i])&&(tab[1][i]==tab[0][i]){
+            if (tab[0][i]==valeur_cellule)&&(tab[1][i]==tab[2][i])&&(tab[1][i]==tab[0][i]){
                 return true;
             }
         }
-        return false;
+        false
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la diagonale ascendante
-    pub fn VerifDiagonaleAscendante(valeurCellule:char,tab : &mut [[char;3];3])->bool{
-        if(tab[0][2]==valeurCellule)&&(tab[1][1]==tab[2][0])&&(tab[1][1]==tab[0][2]){
+    pub fn verif_diagonale_ascendante(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
+        if(tab[0][2]==valeur_cellule)&&(tab[1][1]==tab[2][0])&&(tab[1][1]==tab[0][2]){
             return true;
         }
         false
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la descendante
-    pub fn VerifDiagonaleDescendante(valeurCellule:char,tab : &mut [[char;3];3])->bool{
-        if((tab[0][0]==valeurCellule)&&(tab[1][1]==tab[2][2])&&(tab[1][1]==tab[0][0])){
+    pub fn verif_diagonale_descendante(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
+        if tab[0][0]==valeur_cellule && tab[1][1]==tab[2][2]&&tab[1][1]==tab[0][0]{
             return true;
         }
         false
     }
     //Verifie que la cellule est libre
-    pub fn VerifCellule(ValeurEnI:usize,ValeurEnJ:usize,tab : &mut [[char;3];3])->bool{
-        if (tab[ValeurEnI][ValeurEnJ]=='_'){
+    pub fn verif_cellule(valeur_en_i:usize,valeur_en_j:usize,tab : &mut [[char;3];3])->bool{
+        if tab[valeur_en_i][valeur_en_j]=='_'{
             return true
         }
-        return false;
+        false
     }
     // pose le symbole 'X' dans tab
-    pub fn PoseSymboleX(ValeurEnI:usize,ValeurEnJ:usize,tab : &mut [[char;3];3]){
-        tab[ValeurEnI][ValeurEnJ]='x';
+    pub fn pose_symbole_x(valeur_en_i:usize,valeur_en_j:usize,tab : &mut [[char;3];3]){
+        tab[valeur_en_i][valeur_en_j]='x';
     }
     // pose le symbole 'O' dans tab
-    pub fn PoseSymboleO(ValeurEnI:usize,ValeurEnJ:usize,tab : &mut [[char;3];3]){
-        tab[ValeurEnI][ValeurEnJ]='0';
+    pub fn pose_symbole_o(valeur_en_i:usize,valeur_en_j:usize,tab : &mut [[char;3];3]){
+        tab[valeur_en_i][valeur_en_j]='0';
     }
     // Retourne le numero saisie par l'utilisateur
-    pub fn SaisieNumeroLigne()->usize{
+    pub fn saisie_numero_ligne()->usize{
         println!("merci de saisir le numéro de ligne");
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
         let num = input.trim().parse::<usize>().unwrap();
-        return num;
+        num
     }
     // Retourne le numero saisie par l'utilisateur
-    pub fn SaisieNumeroColonne()->usize{
+    pub fn saisie_numero_colonne()->usize{
         println!("merci de saisir le numéro de Colonne");
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
         let num = input.trim().parse::<usize>().unwrap();
-        return num;
+        num
     }
     // Test si le jeu est fini
-    pub fn TestFinDuJeu(valeurAsaisir:char,tab : &mut [[char;3];3])->bool{
-        if (VerifLine(tab)==true){return true;}
-        if (VerifColonne(valeurAsaisir,tab)==true){return true;}
-        if (VerifDiagonaleAscendante(valeurAsaisir,tab)==true){return true;}
-        if (VerifDiagonaleDescendante(valeurAsaisir,tab)==true){return true;}
-        return false;
+    pub fn test_fin_du_jeu(valeur_a_saisir:char,tab : &mut [[char;3];3])->bool{
+        if verif_line(tab){return true;}
+        if verif_colonne(valeur_a_saisir,tab){return true;}
+        if verif_diagonale_ascendante(valeur_a_saisir,tab){return true;}
+        if verif_diagonale_descendante(valeur_a_saisir,tab){return true;}
+        false
     }
     // Verifie que l'utilisateur saisie bien un entier entre 0 et 2
-    pub fn VerifSaisie(val:usize)-> bool{
+    pub fn verif_saisie(val:usize)-> bool{
         if val < 0 || val > 2 {
             println!("Merci de saisir un Entier en 0 et 2");
-            return false
+            return false;
         }
-        return true;
+         true
     }
     
     pub fn jouer () 
     {
-        let mut grille= InitialiseGrille();
-        let mut nombreDeCoup = 0;
-        let mut estFinie:bool = false;
+        let mut grille= initialise_grille();
+        let mut nombre_de_coup = 0;
+        let mut est_fini:bool = false;
         let mut tour = 1;
-        let mut valeurEnI =3;
-        let mut valeurEnJ= 3;
-        InitialiseGrille();
-        let mut pos = ' ';
-        while (!estFinie && nombreDeCoup<9 )
+        let mut valeur_en_i =3;
+        let mut valeur_en_j= 3;
+        initialise_grille();
+        while !est_fini && nombre_de_coup<9 
         {
-            AfficheGrille(&mut grille);
+            affiche_grille(&mut grille);
             if tour == 1 {
                 println!("C'est au joueur 1 ");
-                valeurEnI = SaisieNumeroColonne();
-                valeurEnJ = SaisieNumeroLigne();
-                while (!VerifSaisie(valeurEnI) || !VerifSaisie(valeurEnJ)) || !VerifCellule(valeurEnI, valeurEnJ, &mut grille) {
-                    if (!VerifSaisie(valeurEnI) || !VerifCellule(valeurEnI, valeurEnJ, &mut grille)) {
-                        valeurEnI = SaisieNumeroColonne();
+                valeur_en_i = saisie_numero_ligne();
+                valeur_en_j = saisie_numero_colonne();
+                while (!verif_saisie(valeur_en_i) || !verif_saisie(valeur_en_j)) || !verif_cellule(valeur_en_i, valeur_en_j, &mut grille) {
+                    if !verif_saisie(valeur_en_i) || !verif_cellule(valeur_en_i, valeur_en_j, &mut grille){
+                        println!("la cellule est déjà prise, recommencez");
+                        valeur_en_i = saisie_numero_colonne();
                     }
-                    if !VerifSaisie(valeurEnJ) || !VerifCellule(valeurEnI, valeurEnJ, &mut grille) {
-                        valeurEnJ = SaisieNumeroLigne();
+                    if !verif_saisie(valeur_en_j) || !verif_cellule(valeur_en_i, valeur_en_j, &mut grille) {
+                        println!("la cellule est déjà prise, recommencez");
+                        valeur_en_j = saisie_numero_ligne();
                     }
                 }
-                PoseSymboleO(valeurEnI,valeurEnJ,&mut grille);
-                estFinie=TestFinDuJeu('0',&mut grille);
+                pose_symbole_o(valeur_en_i,valeur_en_j,&mut grille);
+                est_fini=test_fin_du_jeu('0',&mut grille);
             }else if tour == 2{
                 println!("C'est au joueur 2 ");
-                valeurEnI = SaisieNumeroColonne();
-                valeurEnJ = SaisieNumeroLigne();
-                while (!VerifSaisie(valeurEnI)||!VerifSaisie(valeurEnJ))||!VerifCellule(valeurEnI,valeurEnJ,&mut grille) {
-                    if (!VerifSaisie(valeurEnI)||!VerifCellule(valeurEnI,valeurEnJ,&mut grille)){
-                        valeurEnI = SaisieNumeroColonne();
+                valeur_en_i = saisie_numero_ligne();
+                valeur_en_j = saisie_numero_colonne();
+                while (!verif_saisie(valeur_en_i)||!verif_saisie(valeur_en_j))||!verif_cellule(valeur_en_i,valeur_en_j,&mut grille) {
+                    if !verif_saisie(valeur_en_i)||!verif_cellule(valeur_en_i,valeur_en_j,&mut grille){
+                        println!("la cellule est déjà prise, recommencez");
+                        valeur_en_i = saisie_numero_colonne();
                     }
-                    if !VerifSaisie(valeurEnJ)||!VerifCellule(valeurEnI,valeurEnJ,&mut grille){
-                        valeurEnJ = SaisieNumeroLigne();
+                    if !verif_saisie(valeur_en_j)||!verif_cellule(valeur_en_i,valeur_en_j,&mut grille){
+                        println!("la cellule est déjà prise, recommencez");
+                        valeur_en_j = saisie_numero_ligne();
                     }
                 }   
                 
-                PoseSymboleX(valeurEnI,valeurEnJ,&mut grille);
-                estFinie=TestFinDuJeu('x',&mut grille);
-                
+                pose_symbole_x(valeur_en_i,valeur_en_j,&mut grille);
+                est_fini=test_fin_du_jeu('x',&mut grille);
             }
-            if (tour == 1){
+            if tour == 1{
                 tour = 2;
             }else{
                 tour = 1;
             }
-            AfficheGrille(&mut grille);
+            if est_fini{
+                if tour == 1{
+                    println!("le joueur 1 a gagner")
+                }else{ 
+                    println!("le joeur 2 a gagner")
+                }
+                    affiche_grille(&mut grille)
+            }
         }
     }
 }
