@@ -88,7 +88,7 @@ mod tests {
     fn test_pose_symbole_x() {
         let ligne_a_tester=1;
         let colonne_a_tester =1;
-        let mut array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', 'x', '_'], ['_', '_', '_']];
+        let array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', 'x', '_'], ['_', '_', '_']];
         let mut tableau_a_tester: [[char; 3]; 3] = [['_', '_', '_'],['_', '_', '_'], ['_', '_', '_']];
         pose_symbole_x(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester);
         assert!(array_2d==tableau_a_tester);
@@ -99,7 +99,7 @@ mod tests {
     fn test_pose_symbole_o() {
         let ligne_a_tester=1;
         let colonne_a_tester =1;
-        let mut array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', '0', '_'], ['_', '_', '_']];
+        let array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', '0', '_'], ['_', '_', '_']];
         let mut tableau_a_tester: [[char; 3]; 3] = [['_', '_', '_'],['_', '_', '_'], ['_', '_', '_']];
 
         pose_symbole_o(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester);

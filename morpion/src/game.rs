@@ -5,8 +5,7 @@ pub mod morpion
 {
     // Initialise la grille du morpion
     pub fn initialise_grille()->[[char;3];3]{
-        let mut tab = [['_';3];3];
-        return tab;
+        [['_';3];3]
     }
     // Affiche la grille du morpion
     pub fn affiche_grille(tab : &mut [[char;3];3]){
@@ -24,7 +23,7 @@ pub mod morpion
                    return true; 
                }
         }
-        return false
+        false
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la colonne
     pub fn verif_colonne(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
@@ -37,24 +36,16 @@ pub mod morpion
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la diagonale ascendante
     pub fn verif_diagonale_ascendante(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
-        if(tab[0][2]==valeur_cellule)&&(tab[1][1]==tab[2][0])&&(tab[1][1]==tab[0][2]){
-            return true;
-        }
-        false
+        tab[0][2]==valeur_cellule&&tab[1][1]==tab[2][0]&&tab[1][1]==tab[0][2]
+        
     }
     // Verifie si il y'a 3 ronds ou 3 croix dans la descendante
     pub fn verif_diagonale_descendante(valeur_cellule:char,tab : &mut [[char;3];3])->bool{
-        if tab[0][0]==valeur_cellule && tab[1][1]==tab[2][2]&&tab[1][1]==tab[0][0]{
-            return true;
-        }
-        false
+         tab[0][0]==valeur_cellule && tab[1][1]==tab[2][2]&&tab[1][1]==tab[0][0]
     }
     //Verifie que la cellule est libre
     pub fn verif_cellule(valeur_en_i:usize,valeur_en_j:usize,tab : &mut [[char;3];3])->bool{
-        if tab[valeur_en_i][valeur_en_j]=='_'{
-            return true
-        }
-        false
+         tab[valeur_en_i][valeur_en_j]=='_'
     }
     // pose le symbole 'X' dans tab
     pub fn pose_symbole_x(valeur_en_i:usize,valeur_en_j:usize,tab : &mut [[char;3];3]){
@@ -90,7 +81,7 @@ pub mod morpion
     }
     // Verifie que l'utilisateur saisie bien un entier entre 0 et 2
     pub fn verif_saisie(val:usize)-> bool{
-        if val < 0 || val > 2 {
+        if !(0..=2).contains(&val) {
             println!("Merci de saisir un Entier en 0 et 2");
             return false;
         }
@@ -100,7 +91,7 @@ pub mod morpion
     pub fn jouer () 
     {
         let mut grille= initialise_grille();
-        let mut nombre_de_coup = 0;
+        let nombre_de_coup = 0;
         let mut est_fini:bool = false;
         let mut tour = 1;
         let mut valeur_en_i =3;
