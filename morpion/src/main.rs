@@ -12,8 +12,7 @@ mod tests {
     use crate::game::morpion::verif_diagonale_ascendante;
     use crate::game::morpion::verif_diagonale_descendante;
     use crate::game::morpion::verif_cellule;
-    use crate::game::morpion::pose_symbole_x;
-    use crate::game::morpion::pose_symbole_o;
+    use crate::game::morpion::pose_symbole;
     use crate::game::morpion::verif_saisie;
 
 
@@ -90,7 +89,7 @@ mod tests {
         let colonne_a_tester =1;
         let array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', 'x', '_'], ['_', '_', '_']];
         let mut tableau_a_tester: [[char; 3]; 3] = [['_', '_', '_'],['_', '_', '_'], ['_', '_', '_']];
-        pose_symbole_x(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester);
+        pose_symbole(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester,'x');
         assert!(array_2d==tableau_a_tester);
     }
     // Teste si la pose d'un symbole est correct
@@ -99,10 +98,10 @@ mod tests {
     fn test_pose_symbole_o() {
         let ligne_a_tester=1;
         let colonne_a_tester =1;
-        let array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', '0', '_'], ['_', '_', '_']];
+        let array_2d: [[char; 3]; 3] = [['_', '_', '_'],['_', 'O', '_'], ['_', '_', '_']];
         let mut tableau_a_tester: [[char; 3]; 3] = [['_', '_', '_'],['_', '_', '_'], ['_', '_', '_']];
 
-        pose_symbole_o(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester);
+        pose_symbole(ligne_a_tester,colonne_a_tester,&mut tableau_a_tester,'O');
         assert!(array_2d==tableau_a_tester);
     }
     // Teste si le nombre est en dehors des cases du tableau
